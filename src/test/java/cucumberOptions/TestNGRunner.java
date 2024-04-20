@@ -1,7 +1,5 @@
 package cucumberOptions;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
@@ -9,8 +7,8 @@ import io.cucumber.testng.CucumberOptions;
 		features = "src/test/java/features",
 		glue = "stepDefinitations",
 		monochrome = true,
-		tags = "@regression"
-	
+		tags = "@regression",
+		plugin = {"pretty", "html:target/cucumber.html"}
 		)
 public class TestNGRunner extends AbstractTestNGCucumberTests{
 
@@ -229,6 +227,22 @@ public class TestNGRunner extends AbstractTestNGCucumberTests{
    
    
    
+   --- basic Report generation in cucumber ---
+   
+   to generate basic report add plugin option in cucumberOptions in runner class
+   
+      plugin = {"pretty", "html:target/cucumber.html"}
+      
+      @CucumberOptions(
+		features = "src/test/java/features",
+		glue = "stepDefinitations",
+		monochrome = true,
+		tags = "@regression",
+		plugin = {"pretty", "html:target/cucumber.html"}
+		)
+        public class TestNGRunner extends AbstractTestNGCucumberTests{
+
+        }
    
    
    

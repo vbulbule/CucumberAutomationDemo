@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Assert;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -44,6 +46,7 @@ public class MainSteps {
 	@Then("morgage Cards are displayed")
 	public void morgage_cards_are_displayed() {
 	    // Write code here that turns the phrase above into concrete actions
+		Assert.fail();
 	    System.out.println("morgage Cards are displayed");
 	   
 	}
