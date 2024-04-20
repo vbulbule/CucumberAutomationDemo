@@ -1,5 +1,7 @@
 package cucumberOptions;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
@@ -110,6 +112,164 @@ public class TestNGRunner extends AbstractTestNGCucumberTests{
     but Cucumber has only made sure that every Step has the interconnected method available 
     in the Step Definition file. Take a look at the time duration at the end of every Step.
     It is extremely less.
+           
+           
+           
+    ------------------------   Cucumber Hooks -------------------------------
+    
+    cucumber supports hooks which are blocks of code that run before and after each scenerio
+    You can define then anywher in your project or step definition layers,
+    using the methods @Before and @After.
+    CUcumber Hooks allows us to better manage the code workfloe and helps us to reduce the 
+    code redundancy.
+    
+    we can say that is an unseen step, which allos us to perform our scenarios or test
+    
+    In the world of testinf you must have encountered the situatuins where you need to
+    perform some prerequisits steps before testing any test scenario
+    this can be anything from
+    1. starting web browser
+    2. setting upp the DB connections
+    3. setting up data
+    4. setting tup cookies
+    5. navitgating to certain page
+    or anything before the test
+    
+    in same way there are always after steps as well
+    
+    1. killing the webderiver
+    2. closing the DB connections
+    3. clearing the test data
+    4. logging out from the application
+    5. printing report logs
+    6 taking screenshot error for failed tests
+    ar any thing after the test
+    
+    to handle these kind of situations cucumber hooks are the best choice to use
+    unlike TestNG Annotations
+    
+    ccumber supports only two hooks (Before anf After)
+     which works at start and the end of the scenerio
+     
+     As the name suggests @before hoook gets executed well before any other test scenerio
+     and @after hook executed aftr executing the scenerio
+     
+     
+     before and after hooks can be used to set some prerequisites for specific test scenerios
+     
+     
+     For example
+     
+     we have two test scenerios in our feature 
+     1. test for Insurance user login
+     2. test for carloan insurance login
+     
+     and to run both the test cases successfully we need to set different prerequisites 
+     for both the test cases
+     
+     but if we user background keyword then we nned ho have the same prerequisites for both 
+     the test cases result will failure in tests
+     
+     so we can set the defferent different prerequisites using Hooks like
+     
+     @Before("@insurance")
+	public void beforeForInsurance() {
+		System.out.println("------------before insurance-----------------");
+		System.out.println("Setting data for Insurance test case");
+		System.out.println("------------before end insurance -----------------");
+	}
+	
+	
+	@Before("@carloan")
+	public void beforeForcarloan() {
+		System.out.println("------------before carloan-----------------");
+		System.out.println("Setting data for carloan test case");
+		System.out.println("------------before end carloan -----------------");
+	}
+	
+	@After("@insurance")
+	public void afterInsurance() {
+		System.out.println("------------after insurance-----------------");
+		System.out.println("clean the insurance databse");
+		System.out.println("-----------------------------------");
+	}
+	
+	@After("@carloan")
+	public void aftercarloan() {
+		System.out.println("------------after carloan-----------------");
+		System.out.println("clean the carloan databse");
+		System.out.println("-----------------------------------");
+	}
+	
+	Above mentioned before and after hooks are run for the perticular scenerio which is tagged 
+	with
+	@insurance and @carloan
+	
+	-- test scenerio will look like 
+	
+   @smoke @regression @insurance
+   Scenario: Insurance Page default login
+   Given User is on Netbanking Login page
+   When User Login into application as user "InsuranceUser" with password "insurePWD"
+   Then Home Page is displayed
+   And admin Cards are displayed
+   
+   @regression @carloan
+   Scenario: CarLoan Page default login
+   Given User is on Netbanking Login page
+   When User Login into application as user "CarloanUser" with password "carloanUser"
+   Then Home Page is displayed
+   And morgage Cards are displayed
+   
+   the execution flow of cucumber is 
+   
+   hooks (Before) - >(Hooks Before scenerio specific mentioned then before"@sceneriotag")
+   -> background -> scenerio -> (Hooks After scenerio specific mentioned then after"@sceneriotag") 
+   -> hooks After
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+	
+     
+     
+     
+    
+    
+    
+    
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
            
            
            
